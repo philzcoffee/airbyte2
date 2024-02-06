@@ -9,12 +9,14 @@ from airbyte_cdk.sources.streams.http import HttpStream
 from airbyte_cdk.sources.streams.http.auth import TokenAuthenticator
 
 from datetime import datetime, timedelta
+from pathlib import Path
 import pytz
 import time
 import tempfile
 import os
 import csv
 import random
+import json
 
 # Main Source Class for UberEats
 class SourceUberEats(AbstractSource):
@@ -28,24 +30,42 @@ class SourceUberEats(AbstractSource):
         auth = TokenAuthenticator(token=config['api_key'])
         return [
             OrderDetails(authenticator=auth, config=config),
+            OrderHistory(authenticator=auth, config=config),
+            MenuItemFeedback(authenticator=auth, config=config),
         ]
-
-
 
 
 # Base Stream for UberEats
 class UberEatsStream(HttpStream, ABC):
-    url_base = 'https://ubereats-reports-zkwdzsbzhq-wl.a.run.app/api/v1/GenerateReport'  # Updated URL
-    
+    url_base = 'https://ubereats-reports-zkwdzsbzhq-wl.a.run.app/api/v1/GenerateReport'
+
+    report_type = None
 
     def __init__(self, config: Mapping[str, any], *args, **kwargs):
-        self.start_date_from_config = config.get('start_date')
         super().__init__(*args, **kwargs)
+        self.start_date_from_config = config.get('start_date')
+        if self.report_type is None:
+            raise NotImplementedError("report_type must be set by subclasses")
+    
+    def request_body_json(self, stream_state: Mapping[str, Any], stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None) -> Optional[Mapping]:
+        # Common request body logic here, including start date handling
+        body = {
+            "report_type": self.report_type,  # Use the subclass-defined report type
+            # Add other parameters as necessary
+        }
+        return body
+    
+    @staticmethod
+    def load_schema(schema_name: str) -> dict:
+        """Load a JSON schema file from the schemas directory."""
+        schema_path = Path(__file__).resolve().parent / "schemas" / f"{schema_name}.json"
+        with open(schema_path) as schema_file:
+            return json.load(schema_file)
 
 # Incremental Stream for fetching data incrementally from UberEats
 class IncrementalUberEatsStream(UberEatsStream):    
     http_method = "POST"
-    cursor_field = "ACTIVE_DATE"  # Default cursor field
+    cursor_field = None  # Do not define the cursor field here..
 
     def path(self, **kwargs) -> str:
         return ""
@@ -64,7 +84,7 @@ class IncrementalUberEatsStream(UberEatsStream):
     # Method to get request body for API call
     def request_body_json(
     self, stream_state: Mapping[str, Any], stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None
-    ) -> Optional[Mapping]:        
+) -> Optional[Mapping]:        
         start_date = self.start_date_from_config        
         if stream_state.get(self.cursor_field):
             start_date = stream_state.get(self.cursor_field)
@@ -73,14 +93,16 @@ class IncrementalUberEatsStream(UberEatsStream):
         if len(start_date) > 10:
             start_date = start_date[:10]
 
-        
         # Adjusting start_date for ensuring capture of all changes
         temp_date = datetime.strptime(start_date, "%Y-%m-%d")
         start_date = temp_date.astimezone(pytz.utc).strftime("%Y-%m-%d")
 
         self.logger.info(f"Start date: {start_date}")
+
+        # Including report_type in the request body
         request_json = { 
             "start_date": start_date,
+            "report_type": self.report_type  # Ensuring report_type is included in the request body
         }
 
         self.logger.info(f"Sending request: {request_json}")
@@ -111,7 +133,7 @@ class IncrementalUberEatsStream(UberEatsStream):
 
             # Initial request
             get_report_response = requests.get(get_report_url, headers=self.authenticator.get_auth_header())
-            self.logger.info("Initial request made for report.")
+            self.logger.info("Initial request made for report: {workflow_id}.")
 
             # Exponential backoff until report is ready or 10 minutes passed
             while not get_report_response.ok or ('report_status' in get_report_response.json() and get_report_response.json()['report_status'] != 'SUCCEEDED' and time.time() - time_start < 600): 
@@ -165,5 +187,28 @@ class IncrementalUberEatsStream(UberEatsStream):
 
 # Specific stream classes for different report types
 class OrderDetails(IncrementalUberEatsStream):    
-    primary_key = "ORDER_ID"
+    primary_key = "Constructed Key"
+    cursor_field = "Check Order Date"
+    report_type = "ORDERS_AND_ITEMS_REPORT"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.schema = self.load_schema("order_details")
+
+class OrderHistory(IncrementalUberEatsStream):
+    primary_key = "Order UUID"
+    cursor_field = "Date Ordered"
+    report_type = "ORDER_HISTORY_REPORT"
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.schema = self.load_schema("order_history")
+           
+class MenuItemFeedback(IncrementalUberEatsStream):
+    primary_key = "Order UUID"
+    cursor_field = cursor_field = "Date Ordered"
+    report_type = "MENU_ITEM_FEEDBACK_REPORT"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.schema = self.load_schema("menu_item_feedback")

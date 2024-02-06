@@ -1,61 +1,345 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UberEatsOrderDetails",
+  "description": "Schema for Uber Eats Order Details Data",
   "type": "object",
   "properties": {
-    "Store Name": {"type": ["null", "string"]},
-    "Store ID": {"type": ["null", "string"]},
-    "Order ID": {"type": ["null", "string"]},
-    "Workflow ID": {"type": ["null", "string"]},
-    "Item Name": {"type": ["null", "string"]},
-    "Item Priced By": {"type": ["null", "string"]},
-    "Unit Sold By": {"type": ["null", "string"]},
-    "Estimated Average Weight": {"type": ["null", "number"]},
-    "Requested Weight": {"type": ["null", "number"]},
-    "Final Weight": {"type": ["null", "number"]},
-    "Requested Count": {"type": ["null", "number"]},
-    "Final Count": {"type": ["null", "number"]},
-    "Requested Quantity": {"type": ["null", "number"]},
-    "Final Quantity": {"type": ["null", "number"]},
-    "Unit price": {"type": ["null", "number"]},
-    "External ID": {"type": ["null", "string"]},
-    "Dining Mode": {"type": ["null", "string"]},
-    "Payment Mode": {"type": ["null", "string"]},
-    "Order Channel": {"type": ["null", "string"]},
-    "Order Status": {"type": ["null", "string"]},
-    "Order Date": {"type": ["null", "string"], "format": "date-time"},
-    "Order Accept Time": {"type": ["null", "string"], "format": "date-time"},
-    "Customer Uber-Membership Status": {"type": ["null", "string"]},
-    "Sales (excl. tax)": {"type": ["null", "number"]},
-    "Tax on sales": {"type": ["null", "number"]},
-    "Sales (incl. tax)": {"type": ["null", "number"]},
-    "Refunds (excl tax)": {"type": ["null", "number"]},
-    "Tax on Refunds": {"type": ["null", "number"]},
-    "Refunds (incl tax)": {"type": ["null", "number"]},
-    "Price adjustments (excl. tax)": {"type": ["null", "number"]},
-    "Tax on price adjustments": {"type": ["null", "number"]},
-    "Promotions on items": {"type": ["null", "number"]},
-    "Tax on Promotion on items": {"type": ["null", "number"]},
-    "Promotions on delivery": {"type": ["null", "number"]},
-    "Tax on Promotions on Delivery": {"type": ["null", "number"]},
-    "Bag Fee": {"type": ["null", "number"]},
-    "Marketing adjustment": {"type": ["null", "number"]},
-    "Total Sales after Adjustments (incl tax)": {"type": ["null", "number"]},
-    "Marketplace fee": {"type": ["null", "number"]},
-    "Marketplace fee %": {"type": ["null", "number"]},
-    "Delivery Network Fee": {"type": ["null", "number"]},
-    "Order Processing Fee": {"type": ["null", "number"]},
-    "Merchant Fee": {"type": ["null", "number"]},
-    "Tax on Merchant Fee": {"type": ["null", "number"]},
-    "Tips": {"type": ["null", "number"]},
-    "Other payments description": {"type": ["null", "string"]},
-    "Other payments": {"type": ["null", "number"]},
-    "Marketplace Facilitator Tax": {"type": ["null", "number"]},
-    "Backup Withholding Tax": {"type": ["null", "number"]},
-    "Total payout": {"type": ["null", "number"]},
-    "Payout Date": {"type": ["null", "string"], "format": "date-time"},
-    "Markup Amount": {"type": ["null", "number"]},
-    "Markup Tax": {"type": ["null", "number"]},
-    "Retailer Loyalty ID": {"type": ["null", "string"]},
-    "Payout reference ID": {"type": ["null", "string"]}
-  }
+    "Check Store Name": {
+      "type": ["null", "string"]
+    },
+    "Check Store ID": {
+      "type": ["null", "string"]
+    },
+    "Check Order ID": {
+      "type": ["null", "string"]
+    },
+    "Check Workflow ID": {
+      "type": ["null", "string"]
+    },
+    "Check Item Name": {
+      "type": ["null", "string"]
+    },
+    "Check Item Priced By": {
+      "type": ["null", "string"]
+    },
+    "Check Unit Sold By": {
+      "type": ["null", "string"]
+    },
+    "Check Estimated Average Weight": {
+      "type": ["null", "string"]
+    },
+    "Check Requested Weight": {
+      "type": ["null", "string"]
+    },
+    "Check Final Weight": {
+      "type": ["null", "string"]
+    },
+    "Check Requested Count": {
+      "type": ["null", "string"]
+    },
+    "Check Final Count": {
+      "type": ["null", "string"]
+    },
+    "Check Requested Quantity": {
+      "type": ["null", "string"]
+    },
+    "Check Final Quantity": {
+      "type": ["null", "string"]
+    },
+    "Check Unit price": {
+      "type": ["null", "string"]
+    },
+    "Check External ID": {
+      "type": ["null", "string"]
+    },
+    "Check Dining Mode": {
+      "type": ["null", "string"]
+    },
+    "Check Payment Mode": {
+      "type": ["null", "string"]
+    },
+    "Check Order Channel": {
+      "type": ["null", "string"]
+    },
+    "Check Order Status": {
+      "type": ["null", "string"]
+    },
+    "Check Order Date": {
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "Check Order Accept Time": {
+      "type": ["null", "string"]
+    },
+    "Check Customer Uber-Membership Status": {
+      "type": ["null", "string"]
+    },
+    "Check Sales (excl. tax)": {
+      "type": ["null", "string"]
+    },
+    "Check Tax on sales": {
+      "type": ["null", "string"]
+    },
+    "Check Sales (incl. tax)": {
+      "type": ["null", "string"]
+    },
+    "Check Refunds (excl tax)": {
+      "type": ["null", "string"]
+    },
+    "Check Tax on Refunds": {
+      "type": ["null", "string"]
+    },
+    "Check Refunds (incl tax)": {
+      "type": ["null", "string"]
+    },
+    "Check Price adjustments (excl. tax)": {
+      "type": ["null", "string"]
+    },
+    "Check Tax on price adjustments": {
+      "type": ["null", "string"]
+    },
+    "Check Promotions on items": {
+      "type": ["null", "string"]
+    },
+    "Check Tax on Promotion on items": {
+      "type": ["null", "string"]
+    },
+    "Check Promotions on delivery": {
+      "type": ["null", "string"]
+    },
+    "Check Tax on Promotions on Delivery": {
+      "type": ["null", "string"]
+    },
+    "Check Bag Fee": {
+      "type": ["null", "string"]
+    },
+    "Check Marketing adjustment": {
+      "type": ["null", "string"]
+    },
+    "Check Total Sales after Adjustments (incl tax)": {
+      "type": ["null", "string"]
+    },
+    "Check Marketplace fee": {
+      "type": ["null", "string"]
+    },
+    "Check Marketplace fee %": {
+      "type": ["null", "string"]
+    },
+    "Check Delivery Network Fee": {
+      "type": ["null", "string"]
+    },
+    "Check Order Processing Fee": {
+      "type": ["null", "string"]
+    },
+    "Check Merchant Fee": {
+      "type": ["null", "string"]
+    },
+    "Check Tax on Merchant Fee": {
+      "type": ["null", "string"]
+    },
+    "Check Tips": {
+      "type": ["null", "string"]
+    },
+    "Check Other payments description": {
+      "type": ["null", "string"]
+    },
+    "Check Other payments": {
+      "type": ["null", "string"]
+    },
+    "Check Marketplace Facilitator Tax": {
+      "type": ["null", "string"]
+    },
+    "Check Backup Withholding Tax": {
+      "type": ["null", "string"]
+    },
+    "Check Total payout": {
+      "type": ["null", "string"]
+    },
+    "Check Payout Date": {
+      "type": ["null", "string"]
+    },
+    "Check Markup Amount": {
+      "type": ["null", "string"]
+    },
+    "Check Markup Tax": {
+      "type": ["null", "string"]
+    },
+    "Check Retailer Loyalty ID": {
+      "type": ["null", "string"]
+    },
+    "Check Payout reference ID": {
+      "type": ["null", "string"]
+    },
+    "Item Store Name": {
+      "type": ["null", "string"]
+    },
+    "Item Store ID": {
+      "type": ["null", "string"]
+    },
+    "Item Order ID": {
+      "type": ["null", "string"]
+    },
+    "Item Workflow ID": {
+      "type": ["null", "string"]
+    },
+    "Item Item Name": {
+      "type": ["null", "string"]
+    },
+    "Item Item Priced By": {
+      "type": ["null", "string"]
+    },
+    "Item Unit Sold By": {
+      "type": ["null", "string"]
+    },
+    "Item Estimated Average Weight": {
+      "type": ["null", "string"]
+    },
+    "Item Requested Weight": {
+      "type": ["null", "string"]
+    },
+    "Item Final Weight": {
+      "type": ["null", "string"]
+    },
+    "Item Requested Count": {
+      "type": ["null", "string"]
+    },
+    "Item Final Count": {
+      "type": ["null", "string"]
+    },
+    "Item Requested Quantity": {
+      "type": ["null", "string"]
+    },
+    "Item Final Quantity": {
+      "type": ["null", "string"]
+    },
+    "Item Unit price": {
+      "type": ["null", "string"]
+    },
+    "Item External ID": {
+      "type": ["null", "string"]
+    },
+    "Item Dining Mode": {
+      "type": ["null", "string"]
+    },
+    "Item Payment Mode": {
+      "type": ["null", "string"]
+    },
+    "Item Order Channel": {
+      "type": ["null", "string"]
+    },
+    "Item Order Status": {
+      "type": ["null", "string"]
+    },
+    "Item Order Date": {
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "Item Order Accept Time": {
+      "type": ["null", "string"]
+    },
+    "Item Customer Uber-Membership Status": {
+      "type": ["null", "string"]
+    },
+    "Item Sales (excl. tax)": {
+      "type": ["null", "string"]
+    },
+    "Item Tax on sales": {
+      "type": ["null", "string"]
+    },
+    "Item Sales (incl. tax)": {
+      "type": ["null", "string"]
+    },
+    "Item Refunds (excl tax)": {
+      "type": ["null", "string"]
+    },
+    "Item Tax on Refunds": {
+      "type": ["null", "string"]
+    },
+    "Item Refunds (incl tax)": {
+      "type": ["null", "string"]
+    },
+    "Item Price adjustments (excl. tax)": {
+      "type": ["null", "string"]
+    },
+    "Item Tax on price adjustments": {
+      "type": ["null", "string"]
+    },
+    "Item Promotions on items": {
+      "type": ["null", "string"]
+    },
+    "Item Tax on Promotion on items": {
+      "type": ["null", "string"]
+    },
+    "Item Promotions on delivery": {
+      "type": ["null", "string"]
+    },
+    "Item Tax on Promotions on Delivery": {
+      "type": ["null", "string"]
+    },
+    "Item Bag Fee": {
+      "type": ["null", "string"]
+    },
+    "Item Marketing adjustment": {
+      "type": ["null", "string"]
+    },
+    "Item Total Sales after Adjustments (incl tax)": {
+      "type": ["null", "string"]
+    },
+    "Item Marketplace fee": {
+      "type": ["null", "string"]
+    },
+    "Item Marketplace fee %": {
+      "type": ["null", "string"]
+    },
+    "Item Delivery Network Fee": {
+      "type": ["null", "string"]
+    },
+    "Item Order Processing Fee": {
+      "type": ["null", "string"]
+    },
+    "Item Merchant Fee": {
+      "type": ["null", "string"]
+    },
+    "Item Tax on Merchant Fee": {
+      "type": ["null", "string"]
+    },
+    "Item Tips": {
+      "type": ["null", "string"]
+    },
+    "Item Other payments description": {
+      "type": ["null", "string"]
+    },
+    "Item Other payments": {
+      "type": ["null", "string"]
+    },
+    "Item Marketplace Facilitator Tax": {
+      "type": ["null", "string"]
+    },
+    "Item Backup Withholding Tax": {
+      "type": ["null", "string"]
+    },
+    "Item Total payout": {
+      "type": ["null", "string"]
+    },
+    "Item Payout Date": {
+      "type": ["null", "string"]
+    },
+    "Item Markup Amount": {
+      "type": ["null", "string"]
+    },
+    "Item Markup Tax": {
+      "type": ["null", "string"]
+    },
+    "Item Retailer Loyalty ID": {
+      "type": ["null", "string"]
+    },
+    "Item Payout reference ID": {
+      "type": ["null", "string"]
+    },
+    "Constructed Key": {
+      "type": ["null", "string"]
+    }
+  },
+  "required": [],
+  "additionalProperties": true
 }

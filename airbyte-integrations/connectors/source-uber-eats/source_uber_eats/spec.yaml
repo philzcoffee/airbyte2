@@ -4,13 +4,8 @@ connectionSpecification:
   title: Uber Eats Spec
   type: object
   required:
-    - api_key
     - start_date
   properties:
-    api_key:
-      type: string
-      description: API token provided by UberEats.
-      airbyte_secret: true
     start_date:
       type: string
       description: Start getting data from that date.
