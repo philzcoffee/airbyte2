@@ -1,345 +1,75 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "UberEatsOrderDetails",
-  "description": "Schema for Uber Eats Order Details Data",
+  "title": "OrderDetails",
   "type": "object",
   "properties": {
-    "Check Store Name": {
-      "type": ["null", "string"]
-    },
-    "Check Store ID": {
-      "type": ["null", "string"]
-    },
-    "Check Order ID": {
-      "type": ["null", "string"]
-    },
-    "Check Workflow ID": {
-      "type": ["null", "string"]
-    },
-    "Check Item Name": {
-      "type": ["null", "string"]
-    },
-    "Check Item Priced By": {
-      "type": ["null", "string"]
-    },
-    "Check Unit Sold By": {
-      "type": ["null", "string"]
-    },
-    "Check Estimated Average Weight": {
-      "type": ["null", "string"]
-    },
-    "Check Requested Weight": {
-      "type": ["null", "string"]
-    },
-    "Check Final Weight": {
-      "type": ["null", "string"]
-    },
-    "Check Requested Count": {
-      "type": ["null", "string"]
-    },
-    "Check Final Count": {
-      "type": ["null", "string"]
-    },
-    "Check Requested Quantity": {
-      "type": ["null", "string"]
-    },
-    "Check Final Quantity": {
-      "type": ["null", "string"]
-    },
-    "Check Unit price": {
-      "type": ["null", "string"]
-    },
-    "Check External ID": {
-      "type": ["null", "string"]
-    },
-    "Check Dining Mode": {
-      "type": ["null", "string"]
-    },
-    "Check Payment Mode": {
-      "type": ["null", "string"]
-    },
-    "Check Order Channel": {
-      "type": ["null", "string"]
-    },
-    "Check Order Status": {
-      "type": ["null", "string"]
-    },
-    "Check Order Date": {
-      "type": ["null", "string"],
-      "format": "date"
-    },
-    "Check Order Accept Time": {
-      "type": ["null", "string"]
-    },
-    "Check Customer Uber-Membership Status": {
-      "type": ["null", "string"]
-    },
-    "Check Sales (excl. tax)": {
-      "type": ["null", "string"]
-    },
-    "Check Tax on sales": {
-      "type": ["null", "string"]
-    },
-    "Check Sales (incl. tax)": {
-      "type": ["null", "string"]
-    },
-    "Check Refunds (excl tax)": {
-      "type": ["null", "string"]
-    },
-    "Check Tax on Refunds": {
-      "type": ["null", "string"]
-    },
-    "Check Refunds (incl tax)": {
-      "type": ["null", "string"]
-    },
-    "Check Price adjustments (excl. tax)": {
-      "type": ["null", "string"]
-    },
-    "Check Tax on price adjustments": {
-      "type": ["null", "string"]
-    },
-    "Check Promotions on items": {
-      "type": ["null", "string"]
-    },
-    "Check Tax on Promotion on items": {
-      "type": ["null", "string"]
-    },
-    "Check Promotions on delivery": {
-      "type": ["null", "string"]
-    },
-    "Check Tax on Promotions on Delivery": {
-      "type": ["null", "string"]
-    },
-    "Check Bag Fee": {
-      "type": ["null", "string"]
-    },
-    "Check Marketing adjustment": {
-      "type": ["null", "string"]
-    },
-    "Check Total Sales after Adjustments (incl tax)": {
-      "type": ["null", "string"]
-    },
-    "Check Marketplace fee": {
-      "type": ["null", "string"]
-    },
-    "Check Marketplace fee %": {
-      "type": ["null", "string"]
-    },
-    "Check Delivery Network Fee": {
-      "type": ["null", "string"]
-    },
-    "Check Order Processing Fee": {
-      "type": ["null", "string"]
-    },
-    "Check Merchant Fee": {
-      "type": ["null", "string"]
-    },
-    "Check Tax on Merchant Fee": {
-      "type": ["null", "string"]
-    },
-    "Check Tips": {
-      "type": ["null", "string"]
-    },
-    "Check Other payments description": {
-      "type": ["null", "string"]
-    },
-    "Check Other payments": {
-      "type": ["null", "string"]
-    },
-    "Check Marketplace Facilitator Tax": {
-      "type": ["null", "string"]
-    },
-    "Check Backup Withholding Tax": {
-      "type": ["null", "string"]
-    },
-    "Check Total payout": {
-      "type": ["null", "string"]
-    },
-    "Check Payout Date": {
-      "type": ["null", "string"]
-    },
-    "Check Markup Amount": {
-      "type": ["null", "string"]
-    },
-    "Check Markup Tax": {
-      "type": ["null", "string"]
-    },
-    "Check Retailer Loyalty ID": {
-      "type": ["null", "string"]
-    },
-    "Check Payout reference ID": {
-      "type": ["null", "string"]
-    },
-    "Item Store Name": {
-      "type": ["null", "string"]
-    },
-    "Item Store ID": {
-      "type": ["null", "string"]
-    },
-    "Item Order ID": {
-      "type": ["null", "string"]
-    },
-    "Item Workflow ID": {
-      "type": ["null", "string"]
-    },
-    "Item Item Name": {
-      "type": ["null", "string"]
-    },
-    "Item Item Priced By": {
-      "type": ["null", "string"]
-    },
-    "Item Unit Sold By": {
-      "type": ["null", "string"]
-    },
-    "Item Estimated Average Weight": {
-      "type": ["null", "string"]
-    },
-    "Item Requested Weight": {
-      "type": ["null", "string"]
-    },
-    "Item Final Weight": {
-      "type": ["null", "string"]
-    },
-    "Item Requested Count": {
-      "type": ["null", "string"]
-    },
-    "Item Final Count": {
-      "type": ["null", "string"]
-    },
-    "Item Requested Quantity": {
-      "type": ["null", "string"]
-    },
-    "Item Final Quantity": {
-      "type": ["null", "string"]
-    },
-    "Item Unit price": {
-      "type": ["null", "string"]
-    },
-    "Item External ID": {
-      "type": ["null", "string"]
-    },
-    "Item Dining Mode": {
-      "type": ["null", "string"]
-    },
-    "Item Payment Mode": {
-      "type": ["null", "string"]
-    },
-    "Item Order Channel": {
-      "type": ["null", "string"]
-    },
-    "Item Order Status": {
-      "type": ["null", "string"]
-    },
-    "Item Order Date": {
-      "type": ["null", "string"],
-      "format": "date"
-    },
-    "Item Order Accept Time": {
-      "type": ["null", "string"]
-    },
-    "Item Customer Uber-Membership Status": {
-      "type": ["null", "string"]
-    },
-    "Item Sales (excl. tax)": {
-      "type": ["null", "string"]
-    },
-    "Item Tax on sales": {
-      "type": ["null", "string"]
-    },
-    "Item Sales (incl. tax)": {
-      "type": ["null", "string"]
-    },
-    "Item Refunds (excl tax)": {
-      "type": ["null", "string"]
-    },
-    "Item Tax on Refunds": {
-      "type": ["null", "string"]
-    },
-    "Item Refunds (incl tax)": {
-      "type": ["null", "string"]
-    },
-    "Item Price adjustments (excl. tax)": {
-      "type": ["null", "string"]
-    },
-    "Item Tax on price adjustments": {
-      "type": ["null", "string"]
-    },
-    "Item Promotions on items": {
-      "type": ["null", "string"]
-    },
-    "Item Tax on Promotion on items": {
-      "type": ["null", "string"]
-    },
-    "Item Promotions on delivery": {
-      "type": ["null", "string"]
-    },
-    "Item Tax on Promotions on Delivery": {
-      "type": ["null", "string"]
-    },
-    "Item Bag Fee": {
-      "type": ["null", "string"]
-    },
-    "Item Marketing adjustment": {
-      "type": ["null", "string"]
-    },
-    "Item Total Sales after Adjustments (incl tax)": {
-      "type": ["null", "string"]
-    },
-    "Item Marketplace fee": {
-      "type": ["null", "string"]
-    },
-    "Item Marketplace fee %": {
-      "type": ["null", "string"]
-    },
-    "Item Delivery Network Fee": {
-      "type": ["null", "string"]
-    },
-    "Item Order Processing Fee": {
-      "type": ["null", "string"]
-    },
-    "Item Merchant Fee": {
-      "type": ["null", "string"]
-    },
-    "Item Tax on Merchant Fee": {
-      "type": ["null", "string"]
-    },
-    "Item Tips": {
-      "type": ["null", "string"]
-    },
-    "Item Other payments description": {
-      "type": ["null", "string"]
-    },
-    "Item Other payments": {
-      "type": ["null", "string"]
-    },
-    "Item Marketplace Facilitator Tax": {
-      "type": ["null", "string"]
-    },
-    "Item Backup Withholding Tax": {
-      "type": ["null", "string"]
-    },
-    "Item Total payout": {
-      "type": ["null", "string"]
-    },
-    "Item Payout Date": {
-      "type": ["null", "string"]
-    },
-    "Item Markup Amount": {
-      "type": ["null", "string"]
-    },
-    "Item Markup Tax": {
-      "type": ["null", "string"]
-    },
-    "Item Retailer Loyalty ID": {
-      "type": ["null", "string"]
-    },
-    "Item Payout reference ID": {
-      "type": ["null", "string"]
-    },
-    "Constructed Key": {
-      "type": ["null", "string"]
-    }
-  },
+    "generated_key": {"type": "string"},
+    "workflow_id": {"type": "string"},
+    "check_store_name": {"type": "string"},
+    "check_store_id": {"type": "string"},
+    "check_order_id": {"type": "string"},
+    "check_dining_mode": {"type": "string"},
+    "check_payment_mode": {"type": "string"},
+    "check_order_channel": {"type": "string"},
+    "check_order_status": {"type": "string"},
+    "check_order_date": {"type": "string", "format": "date"},
+    "check_order_accept_time": {"type": "string"},
+    "check_customer_uber_membership_status": {"type": "string"},
+    "check_sales_excl_tax": {"type": "string"},
+    "check_tax_on_sales": {"type": "string"},
+    "check_sales_incl_tax": {"type": "string"},
+    "check_refunds_excl_tax": {"type": "string"},
+    "check_tax_on_refunds": {"type": "string"},
+    "check_refunds_incl_tax": {"type": "string"},
+    "check_price_adjustments_excl_tax": {"type": "string"},
+    "check_tax_on_price_adjustments": {"type": "string"},
+    "check_promotions_on_items": {"type": "string"},
+    "check_tax_on_promotion_on_items": {"type": "string"},
+    "check_promotions_on_delivery": {"type": "string"},
+    "check_tax_on_promotions_on_delivery": {"type": "string"},
+    "check_bag_fee": {"type": "string"},
+    "check_marketing_adjustment": {"type": "string"},
+    "check_total_sales_after_adjustments_incl_tax": {"type": "string"},
+    "check_marketplace_fee": {"type": "string"},
+    "check_marketplace_fee_percent": {"type": "string"},
+    "check_delivery_network_fee": {"type": "string"},
+    "check_order_processing_fee": {"type": "string"},
+    "check_merchant_fee": {"type": "string"},
+    "check_tax_on_merchant_fee": {"type": "string"},
+    "check_tips": {"type": "string"},
+    "check_other_payments_description": {"type": "string"},
+    "check_other_payments": {"type": "string"},
+    "check_marketplace_facilitator_tax": {"type": "string"},
+    "check_backup_withholding_tax": {"type": "string"},
+    "check_payout_date": {"type": ["string", "null"]},
+    "check_markup_amount": {"type": "string"},
+    "check_markup_tax": {"type": "string"},
+    "check_retailer_loyalty_id": {"type": "string"},
+    "check_payout_reference_id": {"type": "string"},
+    "item_item_name": {"type": "string"},
+    "item_item_priced_by": {"type": "string"},
+    "item_unit_sold_by": {"type": "string"},
+    "item_estimated_average_weight": {"type": "string"},
+    "item_requested_weight": {"type": "string"},
+    "item_final_weight": {"type": "string"},
+    "item_requested_count": {"type": "string"},
+    "item_final_count": {"type": "string"},
+    "item_requested_quantity": {"type": "string"},
+    "item_final_quantity": {"type": "string"},
+    "item_unit_price": {"type": "string"},
+    "item_dining_mode": {"type": "string"},
+    "item_order_channel": {"type": "string"},
+    "item_order_status": {"type": "string"},
+    "item_order_date": {"type": "string", "format": "date"},
+    "item_order_accept_time": {"type": "string"},
+    "item_sales_excl_tax": {"type": "string"},
+    "item_tax_on_sales": {"type": "string"},
+    "item_sales_incl_tax": {"type": "string"},
+    "item_refunds_excl_tax": {"type": "string"},
+    "item_tax_on_refunds": {"type": "string"},
+    "item_refunds_incl_tax": {"type": "string"}
+  }
+  ,
   "required": [],
   "additionalProperties": true
 }

@@ -70,24 +70,40 @@ class IncrementalUberEatsStream(UberEatsStream):
     def path(self, **kwargs) -> str:
         return ""
     
-    # Method to get updated state based on latest record and current stream state
     def get_updated_state(
         self,
         current_stream_state: MutableMapping[str, Any],
         latest_record: Mapping[str, Any],
-    ) -> Mapping[str, Any]:        
+) -> Mapping[str, Any]:        
+        # Retrieve the cursor value from the latest record, defaulting to the start_date_from_config if not present
         latest_record_cursor_value = latest_record.get(self.cursor_field, self.start_date_from_config)
+        
+        # Retrieve the current cursor value from the state, with the same default
         current_state_cursor_value = current_stream_state.get(self.cursor_field, self.start_date_from_config)
-        new_cursor_value = max(latest_record_cursor_value, current_state_cursor_value)
+        
+        # Determine the new cursor value based on the max of the latest record and current state
+        try:
+            new_cursor_value = max(latest_record_cursor_value, current_state_cursor_value)
+        except TypeError as e:
+            # Log in case of a comparison error, e.g., if the cursor fields are not directly comparable
+            self.logger.error(f"Error comparing cursor values: {e}")
+            raise
+
+        # Return the updated state
         return {self.cursor_field: new_cursor_value}
 
     # Method to get request body for API call
     def request_body_json(
     self, stream_state: Mapping[str, Any], stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None
-) -> Optional[Mapping]:        
-        start_date = self.start_date_from_config        
+) -> Optional[Mapping]:
+        start_date = self.start_date_from_config
+        self.logger.info(f"Current stream state: {stream_state}, looking for cursor field: '{self.cursor_field}'")
         if stream_state.get(self.cursor_field):
             start_date = stream_state.get(self.cursor_field)
+            self.logger.info(f"Found state for {self.cursor_field}: {start_date}")
+        else:
+            # This log will be printed when there's no state for self.cursor_field
+            self.logger.info(f"No state found for {self.cursor_field}, using start date from config: {self.start_date_from_config}")
 
         # Formatting start_date
         if len(start_date) > 10:
@@ -99,6 +115,18 @@ class IncrementalUberEatsStream(UberEatsStream):
 
         self.logger.info(f"Start date: {start_date}")
 
+        if self.first_run:
+            self.logger.info("This is the first run of request_body_json.")
+                   # Including report_type in the request body
+            request_json = { 
+                "start_date": start_date,
+                "report_type": "NONE" 
+            }
+
+            self.logger.info(f"Sending request: {request_json}")
+            self.logger.info(f"Requesting data from {start_date} for NONE")
+            return request_json     
+
         # Including report_type in the request body
         request_json = { 
             "start_date": start_date,
@@ -106,6 +134,7 @@ class IncrementalUberEatsStream(UberEatsStream):
         }
 
         self.logger.info(f"Sending request: {request_json}")
+        self.logger.info(f"Requesting data from {start_date} for {self.report_type}")
         return request_json
     
     # Method to get the next page token, none in this case as pagination is not handled here
@@ -113,7 +142,15 @@ class IncrementalUberEatsStream(UberEatsStream):
         return None    
 
     def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        if self.first_run:
+            self.logger.info("This is the first run of parse_response.")
+            self.first_run = False 
+            return
+        else:
+            self.logger.info("This is a subsequent run of parse_response.")
+
         response_data = response.json()
+
         # Check if the response data is a list of dictionaries with 'workflow_id' as a key
         if isinstance(response_data, list) and all('workflow_id' in d for d in response_data):
             workflow_ids = [d['workflow_id'] for d in response_data]
@@ -129,11 +166,9 @@ class IncrementalUberEatsStream(UberEatsStream):
             max_delay = 60  # maximum delay of 1 minute
             time_start = time.time()
 
-            get_report_response = requests.get(get_report_url, headers=self.authenticator.get_auth_header())
-
             # Initial request
             get_report_response = requests.get(get_report_url, headers=self.authenticator.get_auth_header())
-            self.logger.info("Initial request made for report: {workflow_id}.")
+            self.logger.info(f"Initial request made for report: {workflow_id}.")
 
             # Exponential backoff until report is ready or 10 minutes passed
             while not get_report_response.ok or ('report_status' in get_report_response.json() and get_report_response.json()['report_status'] != 'SUCCEEDED' and time.time() - time_start < 600): 
@@ -183,17 +218,19 @@ class IncrementalUberEatsStream(UberEatsStream):
                     csv_reader = csv.DictReader(f)
 
                     for row in csv_reader:
+                        # self.logger.info(f"Processing row: {json.dumps(row)}")
                         yield row
 
 # Specific stream classes for different report types
 class OrderDetails(IncrementalUberEatsStream):    
-    primary_key = "Constructed Key"
-    cursor_field = "Check Order Date"
+    primary_key = "generated_key"
+    cursor_field = "check_order_date"
     report_type = "ORDERS_AND_ITEMS_REPORT"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.schema = self.load_schema("order_details")
+        self.first_run = True
 
 class OrderHistory(IncrementalUberEatsStream):
     primary_key = "Order UUID"
